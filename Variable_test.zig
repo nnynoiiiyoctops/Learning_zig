@@ -10,3 +10,10 @@ test "Constant test" {
     b += 50;
     try expect(b != 27);
 }
+
+test "as" {
+    const testest: i16 = 10;
+    const test2 = @as(u16, testest);
+
+    try expect(@TypeOf(test2) == u16);
+}
