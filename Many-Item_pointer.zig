@@ -22,3 +22,14 @@ test "И так. Ещё раз" {
 
     try expect(ptr_bfr[2] == 1);
 }
+
+test "Хорошо, теперь попытаемся взять такой тип как [*]T" {
+    var buffer = [1]u8{1} ** 100;
+    const buffer_ptr: *[100]u8 = &buffer;
+    // Вот в гайде уже от этого указателя брали другой указатель, и компилятор согласен ибо тут он выдавал ошибку несоответствия типов. Тогда возьмем уже от не&о указатель
+
+    const another_ptr: [*]u8 = buffer_ptr;
+    MultOnTwo(another_ptr, buffer.len);
+
+    for (buffer) |char| try expect(char == 2);
+}
