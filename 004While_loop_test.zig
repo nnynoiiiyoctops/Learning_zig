@@ -56,3 +56,53 @@ test "Stupidest test of break and continue" {
 
     try expect(summ == 1);
 }
+//func mySqrt(x float64) float64 {
+//      var z, lastz float64 = 1.0, 0.0
+//      for math.Abs(z - lastz) > 0.000001  {
+//              lastz = z
+//              z -= (z*z - x) / (2*z)
+//              fmt.Printf("%8f | %8f\n", z , lastz)
+//      }
+//      return z
+//}
+//
+//func main() {
+//      fmt.Println(mySqrt(2))
+//      fmt.Println(math.Sqrt(2))
+//}//Код выше - 1 из заданий тура Golang. Хочу попробовать написать его на zig в 1 строку
+
+test "sqrt" {
+    var last: f64 = 0.0;
+    var next: f64 = 1.0;
+
+    const x: f64 = 2.0; //Число из которого будем брать корень
+
+    while ((next - last) > 0 and (next - last) < 0.001) {
+        last = next;
+        next -= (next * next - x) / (2 * next);
+    }
+    //Вместо вызова функции легче проверить 2жды) Можно сделать хитрее и сделать что-то типо следующего теста
+    try expect(next < 2);
+}
+
+test "sqrt2" {
+    var last: f64 = 0.0;
+    var next: f64 = 1.0;
+
+    const x: f64 = 2.0; //Число из которого будем брать корень
+    {
+        var step: f64 = 1.0;
+        while (step > 0 and step < 0.001) {
+            last = next;
+            next -= (next * next - x) / (2 * next);
+            step = next - last;
+        }
+    }
+    // Это блок. Все переменные в рамках блока - умерают после выхода из него.
+    //Блок может использовать внешние переменные, как видно в примере
+    //Тут блок нужен просто чтобы удалитm step после всего)
+    //Вообще в блок можно еще и last и x засунуть. Но не вижу смысла. По мне и так неплохо)
+
+    //Вместо вызова функции легче проверить 2жды) Можно сделать хитрее и сделать что-то типо следующего теста
+    try expect(next < 2);
+}
