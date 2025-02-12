@@ -1,7 +1,6 @@
 .PHONY: send get clear
 
 send:
-	rm *~ 
 	git push origin master
 
 get:
