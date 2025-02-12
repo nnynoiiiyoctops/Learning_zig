@@ -19,7 +19,7 @@ test "Constant test" {
 
     //Функция expect возвращает ошибку. Как видно по первым строкам - функция из стандартной бибилиотеки
     //Следовательно и ошибки возвращает предусмотренные стандартной библиотекой. В целом можно заменить
-    //expect на it(expression) a else Error.RandomError; или вроде того. Но expect привычнее да и проще
+    //expect на if(expression) a else Error.RandomError; или вроде того. Но expect привычнее да и проще
     b += 50;
     try expect(b != 27);
 }
