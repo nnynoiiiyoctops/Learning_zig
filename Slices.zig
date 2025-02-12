@@ -7,3 +7,7 @@ test "Создание слайсов" {
     for (0..8, 4..12) |index_slice, index_array| try expect(array[index_array] == first_slice[index_slice]);
 }
 
+//В целом это все
+//Передача слайса в функцию:
+
+//fn Function(slice: []const u8) Передача в функцию
