@@ -1,3 +1,4 @@
+
 .PHONY: send get clear
 
 send:
@@ -6,6 +7,8 @@ send:
 get:
 	git pull origin master
 
-clear:
-	rm *~
+clear: tilda	
 	git add .
+
+tilda: *~
+	rm *~
