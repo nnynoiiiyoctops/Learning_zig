@@ -49,7 +49,6 @@ test "orelse" {
 //Тут более подробно рассписано. Если null то
 
 //В гайде приводится пример orelse unreachable
-const expect = @import("std").testing.expect;
 
 test "orelse unreachable" {
     const a: ?f32 = 5;
@@ -78,3 +77,30 @@ test "if optional payload capture" {
     }
     try expect(b.? == 6);
 } //Пиздим код с гайда
+
+test ".? как псевданим для orelse ureachabblr" {
+    const a: ?i32 = 42;
+    const b: i32 = a.?;
+    try expect(a == b);
+    try expect(numbers_left == 4);
+    //Да, эту переменную вмдно отовсюду
+    //Так как тест собирается и работает
+}
+//Снова пример из гайда но в нем нам интересно другое
+//То что var объявлена вне какого-либо блока и используется функцией
+//Добавлю проверку на то что она есть и в другиз тестах
+var numbers_left: u32 = 4;
+fn eventuallyNullSequence() ?u32 {
+    if (numbers_left == 0) return null;
+    numbers_left -= 1;
+    return numbers_left;
+}
+
+test "while null capture" {
+    var sum: u32 = 0;
+    while (eventuallyNullSequence()) |value| {
+        sum += value;
+    }
+    try expect(sum == 6); // 3 + 2 + 1
+    try expect(numbers_left == 0);
+}
