@@ -16,37 +16,44 @@
 \setmainfont{Times New Roman}
 % Установка моноширного шрифта для кода
 \setmonofont{Liberation Mono}
-\lstdefinelanguage{Zig}{
-    keywords={const, var, pub, fn, return, if, else, while, for, break, continue, switch, case, defer, try, catch, error, true, false, null},
-    sensitive=true,
-    comment=[l]{//},
-    morecomment=[s]{/*}{*/},
-    string=[b]"",
-    morestring=[b]'',
-}
 
-% Настройка подсветки кода
-\lstset{
-    language=Zig,
-    backgroundcolor=\color{white},
-    basicstyle=\ttfamily\small, % Уменьшенный шрифт для кода
-    keywordstyle=\color{blue}\bfseries, % Жирный синий для ключевых слов
-    commentstyle=\color{green}, % Зеленый для комментариев
-    stringstyle=\color{red}, % Красный для строк
+\usepackage{tcolorbox}
+\tcbuselibrary{listings}
+
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
     showstringspaces=false,
-    numbers=left,
-    numberstyle=\tiny\color{gray},
-    stepnumber=1,
-    numbersep=5pt,
-    tabsize=2,
-    breaklines=true,
-    frame=single, % Рамка вокруг кода
+    showtabs=false,                  
+    tabsize=2
 }
 
-\title{Потом придумаю}
-\author{Nnu Noiiiy Octops}
-\date{\today}
+\lstset{style=mystyle}
 
+\newtcblisting{zigcode}[2][]{
+    listing only,
+    listing options={language=Zig, style=mystyle},
+    title=#2,
+    colback=backcolour,
+    colframe=black,
+    coltitle=black,
+    fonttitle=\bfseries,
+    #1
+}
+
+\title{От языка человеческого к языку машинному}
+%Моя книга, как хочу - так называю
+\author{Nnu Noiiiy Octops}
+\date{Однажды эта книга увидет свет...}
 
 \begin{document}
 
@@ -56,11 +63,13 @@
 
 \chapter{Введение}
  \fontsize{14pt}{14pt}\selectfont
-Язык программирования Zig — это современный язык, который предлагает множество возможностей для разработчиков. В этой книге мы рассмотрим основные концепции и возможности Zig.
+ Язык программирования Zig — это современный язык, который предлагает множество возможностей
+ для разработчиков. В этой книге мы рассмотрим основные концепции и возможности Zig.
 
 \section{Установка}
  \fontsize{14pt}{14pt}\selectfont
-Чтобы начать работать с Zig, вам нужно установить его. Подробности можно найти на \href{https://ziglang.org/download/}{официальном сайте Zig}.
+ Чтобы начать работать с Zig, вам нужно установить его. Подробности можно найти на
+ \href{https://ziglang.org/download/}{официальном сайте Zig}.
 
 \section{Первый пример}
  \fontsize{14pt}{14pt}\selectfont
@@ -73,8 +82,8 @@
 \begin{lstlisting}
 const std = @import("std");
 
-pub fn main() !void {
-    try std.debug.print("Hello, World!\n", .{});
+pub fn main() void {
+    std.debug.print("Hello, World!\n", .{});
 }
 \end{lstlisting}
 
