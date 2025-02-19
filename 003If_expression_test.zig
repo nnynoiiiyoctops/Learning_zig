@@ -5,6 +5,7 @@ test "min with if expression" {
     const a: i32 = 10;
     const b: i32 = 5;
     var minimum: i32 = undefined;
+    //Переменная инициализирована но не используется
 
     if (a > b) {
         minimum = b;
