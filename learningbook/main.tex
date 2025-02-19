@@ -1,13 +1,102 @@
-\documentclass[a4paper, draft, oneside, openany]{article}
+\documentclass[a4paper, twoside, openany]{book}
 
 % Подключение пакетов                                                                                                                                                                              
-\usepackage[utf8]{inputenc}               % Изменение кодировки ан UTF8 и как следствие поддержка кириллицы                                                                                        
-\usepackage[russian]{babel}               % Основноый язык - русский, библиотека для проверки орфографии и корректных переносов                                                                    
+\usepackage[utf8]{inputenc}                        % Изменение кодировки ан UTF8 и как следствие поддержка кириллицы
+\usepackage[russian]{babel}                        % Основноый язык - русский, библиотека для проверки орфографии и корректных переносов
 \usepackage{fontspec}                             % Пакет для работы с системными шрифтами                                                                                                         
 \usepackage[paperheight=297mm,  paperwidth=210mm,       top=20mm,       bottom=15mm,    left=20mm,
         right=10mm]{geometry}                     % Параметры страницы                                                                                                                             
 \usepackage{amsmath}                              % Мат формулы                                                                                                                                    
 \usepackage{graphicx}                             % Пакет для вставки изображений                                                                                                                  
+\usepackage{hyperref}                             % Для создания ссылок
+\usepackage{listings}                             % Для вставки кода
+\usepackage{xcolor}                               % Для цветовой схемы
 
-% Установка основного шрифта. Чертёжный ГОСТ типа А                                                                                                                                                
+% Установка основного шрифта. ТаймсНюРоман                                                           
 \setmainfont{Times New Roman}
+% Установка моноширного шрифта для кода
+\setmonofont{Liberation Mono}
+\lstdefinelanguage{Zig}{
+    keywords={const, var, pub, fn, return, if, else, while, for, break, continue, switch, case, defer, try, catch, error, true, false, null},
+    sensitive=true,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    string=[b]"",
+    morestring=[b]'',
+}
+
+% Настройка подсветки кода
+\lstset{
+    language=Zig,
+    backgroundcolor=\color{white},
+    basicstyle=\ttfamily\small, % Уменьшенный шрифт для кода
+    keywordstyle=\color{blue}\bfseries, % Жирный синий для ключевых слов
+    commentstyle=\color{green}, % Зеленый для комментариев
+    stringstyle=\color{red}, % Красный для строк
+    showstringspaces=false,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    tabsize=2,
+    breaklines=true,
+    frame=single, % Рамка вокруг кода
+}
+
+\title{Потом придумаю}
+\author{Nnu Noiiiy Octops}
+\date{\today}
+
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Введение}
+ \fontsize{14pt}{14pt}\selectfont
+Язык программирования Zig — это современный язык, который предлагает множество возможностей для разработчиков. В этой книге мы рассмотрим основные концепции и возможности Zig.
+
+\section{Установка}
+ \fontsize{14pt}{14pt}\selectfont
+Чтобы начать работать с Zig, вам нужно установить его. Подробности можно найти на \href{https://ziglang.org/download/}{официальном сайте Zig}.
+
+\section{Первый пример}
+ \fontsize{14pt}{14pt}\selectfont
+Давайте напишем наш первый пример на Zig. Мы создадим простую программу, которая выводит "Hello, World!".
+
+\subsection{Код}
+ \fontsize{14pt}{14pt}\selectfont
+Вот как выглядит код:
+
+\begin{lstlisting}
+const std = @import("std");
+
+pub fn main() !void {
+    try std.debug.print("Hello, World!\n", .{});
+}
+\end{lstlisting}
+
+\section{Основные конструкции}
+ \fontsize{14pt}{14pt}\selectfont
+В этом разделе мы рассмотрим основные конструкции языка Zig.
+
+\subsection{Переменные}
+ \fontsize{14pt}{14pt}\selectfont
+Переменные в Zig объявляются с помощью ключевого слова \texttt{var} или \texttt{const}. Например:
+
+\begin{lstlisting}
+const x = 5; // Константа
+var y = 10;   // Переменная
+\end{lstlisting}
+
+\section{Ссылки на разделы}
+ \fontsize{14pt}{14pt}\selectfont
+Вы можете вернуться к разделу \ref{Установка} для получения информации о том, как установить Zig.
+
+\chapter{Заключение}
+ \fontsize{14pt}{14pt}\selectfont
+В этой книге мы рассмотрели ничегооо 
+
+\end{document}
