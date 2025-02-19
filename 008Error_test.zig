@@ -65,6 +65,11 @@ test "Other return test" {
 test "Test of try" {
     try expect(@TypeOf(Return_error_or_value(false)) == RandomErrors!i32);
     //Повторю - Если в коде правее try будет ошибка - произойдет заверше^ие блока и будет выход за его пределы с дальнейшим пробрасыванием ошибки
+    //Пишу из будущего
+    //try = алиас (псевдоним) для:
+    //catch |err| return err
+    //Поэтому исполтзовать их вместе - глупо
+    //Лучше писать try потом заменять его на catch и оьрабаотывать ошибки
 }
 
 test "Second Test  of try" {
