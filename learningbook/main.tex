@@ -1,8 +1,8 @@
 \documentclass[a4paper, twoside, openany]{book}
 
 % Подключение пакетов                                                                                                                                                                              
-\usepackage[utf8]{inputenc}                        % Изменение кодировки ан UTF8 и как следствие поддержка кириллицы
-\usepackage[russian]{babel}                        % Основноый язык - русский, библиотека для проверки орфографии и корректных переносов
+\usepackage[utf8]{inputenc}                       % Изменение кодировки ан UTF8 и как следствие поддержка кириллицы
+\usepackage[russian]{babel}                       % Основноый язык - русский, библиотека для проверки орфографии и корректных переносов
 \usepackage{fontspec}                             % Пакет для работы с системными шрифтами                                                                                                         
 \usepackage[paperheight=297mm,  paperwidth=210mm,       top=20mm,       bottom=15mm,    left=20mm,
         right=10mm]{geometry}                     % Параметры страницы                                                                                                                             
@@ -11,43 +11,40 @@
 \usepackage{hyperref}                             % Для создания ссылок
 \usepackage{listings}                             % Для вставки кода
 \usepackage{xcolor}                               % Для цветовой схемы
+\usepackage{listingsutf8}                         % Поддержка UTF-8 в listings
 
 % Установка основного шрифта. ТаймсНюРоман                                                           
 \setmainfont{Times New Roman}
 % Установка моноширного шрифта для кода
 \setmonofont{Liberation Mono}
 
-\usepackage{tcolorbox}
-\tcbuselibrary{listings}
-
+% Цвета для оформления
+\definecolor{codeblue}{rgb}{0.0, 0.0, 0.5}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeorange}{rgb}{1.0, 0.65, 0.0} % Определяем оранжевый цвет
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
-\lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
+\lstdefinelanguage{Zig}{
+    keywords={const, var, fn, pub, return, if, else, while, for, switch, break, continue, defer, errdefer, try, catch, async, await, suspend, resume, comptime, noalias, inline, noinline, export, extern, packed, struct, enum, union, error, anyerror, undefined, null, true, false},
+    sensitive=true,
+    morecomment=[l]{//},
+    morestring=[b]",
+    morestring=[b]'
 }
 
-\lstset{style=mystyle}
-
-\newtcblisting{zigcode}[2][]{
-    listing only,
-    listing options={language=Zig, style=mystyle},
-    title=#2,
-    colback=backcolour,
-    colframe=black,
-    coltitle=black,
-    fonttitle=\bfseries,
-    #1
+\lstset{
+    language=Zig,
+    frame=single, % Рамка вокруг кода
+    numbers=left, % Нумерация строк слева
+    numberstyle=\color{gray}, % Стиль нумерации
+    keywordstyle=\color{codeorange}, % Цвет ключевых слов
+    commentstyle=\color{codeblue}, % Цвет комментариев
+    stringstyle=\color{red}, % Цвет строк
+    captionpos=b, % Позиция заголовка (b - снизу)
+    basicstyle=\ttfamily\small, % Моноширный шрифт
+    backgroundcolor=\color{backcolour}, % Цвет фона
+    captionpos=b, % Позиция заголовка (b - снизу)
+    inputencoding=utf8, % Поддержка UTF-8
 }
 
 \title{От языка человеческого к языку машинному}
@@ -79,7 +76,7 @@
  \fontsize{14pt}{14pt}\selectfont
 Вот как выглядит код:
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Zig, caption={Пример на Zig}]
 const std = @import("std");
 
 pub fn main() void {
@@ -95,9 +92,9 @@ pub fn main() void {
  \fontsize{14pt}{14pt}\selectfont
 Переменные в Zig объявляются с помощью ключевого слова \texttt{var} или \texttt{const}. Например:
 
-\begin{lstlisting}
-const x = 5; // Константа
-var y = 10;   // Переменная
+\begin{lstlisting}[language=Zig, caption={Пример на Zig}]
+const x = 5; // constant
+var y = 10;   //  \textcolor{codeblue}{синий текст}
 \end{lstlisting}
 
 \section{Ссылки на разделы}

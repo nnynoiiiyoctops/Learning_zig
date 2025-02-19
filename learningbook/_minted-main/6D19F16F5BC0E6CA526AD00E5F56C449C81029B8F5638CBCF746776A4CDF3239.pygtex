@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{const}\PYG{+w}{ }\PYG{n}{std}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{@import}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}std\PYGZdq{}}\PYG{p}{);}
+
+\PYG{k+kr}{pub}\PYG{+w}{ }\PYG{k}{fn}\PYG{+w}{ }\PYG{n}{main}\PYG{p}{()}\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{std}\PYG{p}{.}\PYG{n}{debug}\PYG{p}{.}\PYG{n}{print}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Привет, мир!}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{.\PYGZob{}\PYGZcb{});}\PYG{+w}{ }\PYG{c+c1}{// Пример с кириллицей}
+\PYG{+w}{    }\PYG{c+c1}{// Это комментарий на кириллице}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
