@@ -18,20 +18,23 @@ const expect = @import("std").testing.expect;
 //Теперь аллокаторы
 
 const std = @import("std");
-const allocator = std.heap.page_allocator;
+const page_allocator = std.heap.page_allocator;
 
 test "Аллокатор" {
-    const memory = try allocator.alloc(u8, 100);
+    var memory = try page_allocator.alloc(u8, 100);
     //помимо alloc есть resize remap и free
-    defer allocator.free(memory);
+    defer page_allocator.free(memory);
 
     try expect(memory.len == 100);
 
-    if (allocator.resize(memory, 100)) try expect(memory.len != 80);
+    if (page_allocator.resize(memory, 100)) try expect(memory.len != 80);
+
+    memory = try page_allocator.realloc(memory, 80);
     //Как оказалось resize возвращает правду о размере а не меняет длинру
     //remap тут нет к сожелению
+    //relloc работает и переопределяет ращмер. Круто
 
-    try expect(memory.len == 100);
+    try expect(memory.len == 80);
 }
 //Ну и зачем вызывать какой-то аллокатор чтобы создать массив?
 //Аллокаторы выделяют место в куче. Что видно по импорту
@@ -48,3 +51,6 @@ test "Аллокатор" {
 //Куча может изменять размер
 //Стек .data .text и .bss имеют фиксированный размер
 //Вот зачем куча
+
+//const FBA = @import("std").heap.FixedBufferAllocator;
+//_ = FBA;
