@@ -88,3 +88,20 @@ test "Аллокатор фиксированного буфера" {
 }
 //Так как память выделена на стеке, то она не нуждается в освобождении, она автоматически освободится после выхода из области видимости
 //Надо будет подробнее разобраться
+
+const arena_allocator = std.heap.ArenaAllocator;
+
+test "Тест аллокатора арены" {
+    var arena = arena_allocator.init(page_allocator);
+    const allocator = arena.allocator();
+    defer arena.deinit();
+
+    const buf1 = try allocator.alloc(u8, 100);
+    const buf2 = try allocator.alloc(u8, 100);
+
+    for (buf1) |*byte| byte.* = 10;
+    for (buf1) |value| try expect(value == 10);
+
+    for (buf2) |*byte| byte.* = 20;
+    for (buf2) |value| try expect(value == 20);
+}
