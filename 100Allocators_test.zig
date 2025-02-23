@@ -117,3 +117,21 @@ test "Аллокацыя единичных объектов" {
 
     try expect(big_int.* > 1_000_000_000);
 }
+
+test "Тест универсального аллокатора" {
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    //Почему-то нельзя сдеоать const. GPA должен быть изменяемым
+    const allocator = gpa.allocator();
+    defer {
+        const deinit_status = gpa.deinit();
+        if (deinit_status == .leak) expect(false) catch @panic("TEST FAIL");
+    }
+    //Я вот не знаю почему defer не заканчивается на ;
+    //Я тупо не понимаю ...
+
+    const memory = try allocator.alloc(u8, 100);
+    defer allocator.free(memory);
+
+    for (memory) |*byte| byte.* = 15;
+    for (memory) |*byte| try expect(byte.* == 15);
+}
