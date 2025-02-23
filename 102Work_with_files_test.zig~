@@ -1,0 +1,35 @@
+const expect = @import("std").testing.expect;
+const std = @import("std");
+
+//И тааак. Работа с файлами. Добрались.
+//Много на каких языках работал но мало на каких доходил до этого
+
+//И ТАААК
+//Функции открывающие файл отдают "Дескриптор файла"
+//По нему ОС будет считывать информацию с диска и передавать нам.
+//Поэтому функции открывающие файлы надо применять на конкретные значения
+//Закрывая файл мы закрываем и дескриптор и ОС знает что мы более не собираемся читать этот файл
+//При закрытии программы вроде и дескриптор закрываются
+//Но информация неточная
+
+test "открываем файл, пишем, читаем и закрываем его" {
+    const file = try std.fs.cwd().createFile("test.txt", //Имя файла
+        .{
+        .read = true,
+    });
+
+    defer file.close();
+
+    const ttf: *const [12:0]u8 = "text to file";
+    //ttf = text to file
+
+    try file.writeAll(ttf);
+
+    var buffer: [100]u8 = undefined;
+    try file.seekTo(0); //Переход в начало файла. Как перестановка каретки в терминале
+    const bytes_read = try file.readAll(&buffer);
+
+    try expect(std.mem.eql(u8, buffer[0..bytes_read], ttf));
+
+    try expect(bytes_read != buffer.len);
+}
