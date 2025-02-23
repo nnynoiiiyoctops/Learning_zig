@@ -105,3 +105,15 @@ test "Тест аллокатора арены" {
     for (buf2) |*byte| byte.* = 20;
     for (buf2) |value| try expect(value == 20);
 }
+
+//Для одиночных объектов лучше использовать create вместо alloc и destroy вместо free (alloc и free для массивов)
+
+test "Аллокацыя единичных объектов" {
+    const big_int = try page_allocator.create(u128);
+    defer page_allocator.destroy(big_int);
+
+    big_int.* = 0;
+    big_int.* -%= 1;
+
+    try expect(big_int.* > 1_000_000_000);
+}
