@@ -123,3 +123,23 @@ test "make dir" {
     //Поэтому тут и while. В for вроде как нельзя так итерировать
     try expect(file_count == 3);
 }
+
+test "Создание папки" {
+    var dir = try std.fs.cwd().openDir(
+        "files",
+        .{ .iterate = true },
+    );
+    //Директория не должна быть константой. Константа - не компилируется
+    //Потомучто требуемый тип - не тот
+    //+при irerate = false
+    //Попросту не открывается файл в директории
+    defer dir.close();
+
+    const file = try dir.openFile("testing.txt", .{ .mode = .read_write });
+    defer file.close();
+    const end = try file.getEndPos();
+
+    try file.seekTo(end);
+    const bytes_writting = try file.write(" TEST ");
+    try expect(bytes_writting == 6);
+}
