@@ -43,5 +43,24 @@ test "ТЕЕЕЕЕСТ" {
     try expect( str == for_test);
 }
 
-//test "fetchPut" {
-    
+test "fetchPut" {
+    var m = std.AutoHashMap( u8, u56 ).init( PageAllocator );
+    defer m.deinit();
+
+    try m.put( 0xFF, 0xFFFF_FFFF_FFFF_FF );
+    try m.put( 0, 10 );
+
+    const max = try m.fetchPut(0, 500);
+
+    try expect( max.?.value == 10 );
+}
+
+test "Аллокатор со строками" {
+    var string_map = std.StringHashMap( enum{ cute, ugly }) .init( PageAllocator);
+    defer string_map.deinit();
+
+    try string_map.put( "argollit", .cute );
+    try string_map.put( "lithium ", .ugly );
+
+    try expect( string_map.get("lithium ").? == .ugly );
+}
