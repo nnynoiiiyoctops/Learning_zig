@@ -11,7 +11,7 @@ pub fn main() !void {
 
 
     const readed = try input.read(&buffer);
-    var iterated = std.mem.splitAny(u8, buffer[0..readed-1], " \n");
+    var iterated = std.mem.splitAny(u8, &buffer, " \n");
 
     {
         var index: usize = 0;
@@ -31,5 +31,5 @@ pub fn main() !void {
     arg1 = integers[0];
     arg2 = integers[1];
 
-    _ = try output.write(buffer[0..readed-1]);
+    _ = try output.write(buffer[0..readed]);
 }
