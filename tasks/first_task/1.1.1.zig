@@ -11,7 +11,7 @@ pub fn main() !void {
 
 
     const readed = try input.read(&buffer);
-    var iterated = std.mem.splitAny(u8, buffer[0..readed-1], " ");
+    var iterated = std.mem.splitAny(u8, buffer[0..readed-1], " \n");
 
     {
         var index: usize = 0;
