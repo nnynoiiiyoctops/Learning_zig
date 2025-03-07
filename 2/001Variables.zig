@@ -102,3 +102,30 @@ test {
 
     try expect(float == 10.5);
 }
+
+test {
+    const a: u32 align(8) = 10;
+    try expect( @alignOf(@TypeOf(a)) == 4 );
+    //Хз как ещё проверить ...
+}
+
+test {
+    @setRuntimeSafety(false);
+    const a: i8 = -1;
+    const b: u8 = 255;
+    const c: u8 = @bitCast(a);
+    
+    try expect(c == b);
+}
+
+test {
+        const x: i8 = -1;
+        const y: u8 = 255;
+
+        const x_ptr: *u8 = @alignCast(@ptrCast(@constCast(&x)));
+
+        if (x_ptr.* != y) {
+            @panic("увы");
+        }
+        
+}
