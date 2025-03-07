@@ -1,5 +1,6 @@
 const std = @import("std");
 const expect = std.testing.expect;
+
 test {
     const a: i64, const b: i64, const c: i64, var result: i64 = .{ 12, 4, 3, 0 };
     //addition
@@ -86,14 +87,15 @@ test {
 }
 
 test {
-    const i: u16 = 0;
+    const i: u16 = 16;
     const float: switch (i) {
-        0 => f16,
-        1 => f32,
-        2 => f64,
-        3 => f80,
-        4 => f128,
-        5 => c_longdouble,
+        16  => f16,
+        32  => f32,
+        64  => f64,
+        80  => f80,
+        128 => f128,
+        0   => c_longdouble,
+        //Как оказалось - зависит от системы
         else => unreachable,
         //Все типы float
     } = 10.5;
