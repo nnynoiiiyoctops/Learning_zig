@@ -129,3 +129,19 @@ test {
         }
         
 }
+
+test {
+    const a, const b,const c, const d: u8 = .{10,10,15,10};
+    //Можно и так объявлять
+    try expect( a == b and a==d and a != c);
+}
+
+test {
+    const q: ?u8 = null;
+    const result: u8 = q orelse 0;
+    //                 ^        ^
+    //             если != null |
+    //             если всё же  = null
+    //Достаточно удобно для теста
+    try expect( result == 0 );
+}
