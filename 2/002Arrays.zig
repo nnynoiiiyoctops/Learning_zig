@@ -61,3 +61,35 @@ test {
     try expect( hello_world.len == 11 );
 }
         
+test {
+    const matryx: [4][4]u8 = .{
+        [4]u8{ 1, 0, 0, 0},
+        [4]u8{ 0, 1, 0, 0},
+        [4]u8{ 0, 0, 1, 0},
+        [4]u8{ 0, 0, 0, 1} };
+
+    for (0..matryx.len) |index| try expect( matryx[index][index] == 1);
+}
+
+test {
+    var matryx_3d: [4][4][4]u8 = mem.zeroes([4][4][4]u8);
+    //функция заполняюща нулями любой тип.
+    //Конкретно тут она удобнее чем создание итератора
+    for (0..4) |index| matryx_3d[index][index][index] = 1;
+
+    var summ: u8 = 0;
+    for (matryx_3d) |layer| {
+        for (layer) |row| {
+            for (row) |column| {
+                summ += column;
+            }    }  }
+    try expect( summ == 4);
+}
+
+test {
+    const rand_arr: [4]u8 = .{0,1,2,3};
+    const a, const b, const c, const d = rand_arr;
+
+    try expect( a < b and b < c and c < d );
+}
+
