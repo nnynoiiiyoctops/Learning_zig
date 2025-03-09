@@ -58,6 +58,7 @@ test {
     const point = .{ .{.x = 0.0, .y = 0.0},.{.x = 0.0, .y = 0.0}} ** 5;
 
     try expect(point[1].x == point[1].y);
+    try expect( point.len == 10);
 }
 
 //test "array of structs with tuple initialization" {
@@ -75,3 +76,13 @@ test {
 //        try std.testing.expect(point.x == point.y - 1);
 //    }
 //}
+
+test "перемешивание полей" {
+    const p1 = Point{ .x = 1.0, .y = 2.0 }; // Обычный порядок
+    const p2 = Point{ .y = 3.0, .x = 4.0 }; // Порядок изменён
+
+    try std.testing.expect(p1.x == 1.0);
+    try std.testing.expect(p1.y == 2.0);
+    try std.testing.expect(p2.x == 4.0);
+    try std.testing.expect(p2.y == 3.0);
+}
