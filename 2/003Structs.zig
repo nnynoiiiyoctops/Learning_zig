@@ -46,3 +46,32 @@ test {
 //  try expect( does_nothing.PI == 3.14 );
 //  этот код не будет работать так как структура не имеет полей  
 }
+
+test {
+    const arr_of_structs: [10]Point = comptime (std.mem.zeroes([10]Point));
+    //Массив структур
+
+    for (arr_of_structs) |point| try expect( point.x == point.y );
+}
+
+test {
+    const point = .{ .{.x = 0.0, .y = 0.0},.{.x = 0.0, .y = 0.0}} ** 5;
+
+    try expect(point[1].x == point[1].y);
+}
+
+//test "array of structs with tuple initialization" {
+    // Размер массива
+//    const array_size = 10;
+
+    // Объявляем переменную с массивом структур
+//    const points: [array_size]struct {
+//        x: f64 = 0,
+//        y: f64 = 0,
+//    } = .{ .{ .x = 1.0, .y = 2.0 }, .{ .x = 1.0, .y = 2.0 } } ** (array_size / 2);
+
+    // Проверяем, что все элементы массива инициализированы правильно
+//    for (points) |point| {
+//        try std.testing.expect(point.x == point.y - 1);
+//    }
+//}
