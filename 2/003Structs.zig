@@ -86,3 +86,34 @@ test "перемешивание полей" {
     try std.testing.expect(p2.x == 4.0);
     try std.testing.expect(p2.y == 3.0);
 }
+
+const Value = struct{
+    value: i64,
+
+    fn incr( self: *@This() ) void { self.value +|= 1; }
+};
+
+test {
+    var beta: Value = Value{ .value = 0 };
+    beta.incr();
+
+    try expect( beta.value == 1 );
+}
+
+//extern struct для работы с C ABI
+
+const cooler_value = packed struct{
+    x: f64 = 0,
+    y: f64 = 0,
+
+    const default = @This(){ .x = 0, .y = 0 };
+};
+
+test {
+    const a: cooler_value = .default ;
+    //packed struct отличается от обычных вотчем:
+    //Нельзя мешать поля в памяти
+    //Всё что понял
+    try expect( a.x == a.y );
+}
+
