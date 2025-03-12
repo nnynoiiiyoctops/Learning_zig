@@ -89,12 +89,12 @@ test {
 test {
     const i: u16 = 16;
     const float: switch (i) {
-        16  => f16,
-        32  => f32,
-        64  => f64,
-        80  => f80,
+        16 => f16,
+        32 => f32,
+        64 => f64,
+        80 => f80,
         128 => f128,
-        0   => c_longdouble,
+        0 => c_longdouble,
         //Как оказалось - зависит от системы
         else => unreachable,
         //Все типы float
@@ -105,7 +105,7 @@ test {
 
 test {
     const a: u32 align(8) = 10;
-    try expect( @alignOf(@TypeOf(a)) == 4 );
+    try expect(@alignOf(@TypeOf(a)) == 4);
     //Хз как ещё проверить ...
 }
 
@@ -114,26 +114,25 @@ test {
     const a: i8 = -1;
     const b: u8 = 255;
     const c: u8 = @bitCast(a);
-    
+
     try expect(c == b);
 }
 
 test {
-        const x: i8 = -1;
-        const y: u8 = 255;
+    const x: i8 = -1;
+    const y: u8 = 255;
 
-        const x_ptr: *u8 = @alignCast(@ptrCast(@constCast(&x)));
+    const x_ptr: *u8 = @alignCast(@ptrCast(@constCast(&x)));
 
-        if (x_ptr.* != y) {
-            @panic("увы");
-        }
-        
+    if (x_ptr.* != y) {
+        @panic("увы");
+    }
 }
 
 test {
-    const a, const b,const c, const d: u8 = .{10,10,15,10};
+    const a, const b, const c, const d: u8 = .{ 10, 10, 15, 10 };
     //Можно и так объявлять
-    try expect( a == b and a==d and a != c);
+    try expect(a == b and a == d and a != c);
 }
 
 test {
@@ -143,7 +142,7 @@ test {
     //             если != null |
     //             если всё же  = null
     //Достаточно удобно для теста
-    try expect( result == 0 );
+    try expect(result == 0);
 }
 
 test "Перемножение разных типов" {
@@ -151,7 +150,25 @@ test "Перемножение разных типов" {
     const b: u64 = 1;
 
     const result = a * b;
-    try expect( result == 10 );
+    try expect(result == 10);
     //Как оказалось можно
     //Но только тогда, когда итоговый тип может репрезентовать полученной значение
+}
+
+test {
+    const a: u16 align(4) = 10;
+    try expect(a == 10);
+}
+
+const dog: u64 linksection(".rodata") = 52;
+//
+
+test {
+    const not_dog: u64 = 52;
+    try expect(dog == not_dog);
+}
+
+test {
+    const zero_ptr: *allowzero usize = @ptrFromInt(0);
+    try expect(@intFromPtr(zero_ptr) == 0);
 }
