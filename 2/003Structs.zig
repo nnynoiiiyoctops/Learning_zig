@@ -136,9 +136,9 @@ const iter_struct = struct {
 };
 
 test {
-    const itr: iter_struct = .{ .i = -10, .u = 10, .f = 0.1 };
+    const itr: iter_struct = iter_struct{ .i = -10, .u = 10, .f = 0.1 };
 
-    inline for (@typeInfo(iter_struct).StructField) |fild| {
+    inline for (@typeInfo(iter_struct).@"struct".fields) |fild| {
         const value = @field(itr, fild.name);
         try expect(value != 0);
     }
