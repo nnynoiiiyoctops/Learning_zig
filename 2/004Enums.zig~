@@ -1,0 +1,73 @@
+const std = @import("std");
+const expect = std.testing.expect;
+
+const first_enum = enum {
+    a,
+    b,
+    c,
+    d,
+};
+
+test {
+    const enm = first_enum.a;
+    try expect(enm == first_enum.a);
+}
+
+test {
+    const Value_enum = enum(u2) {
+        zero,
+        one,
+        two,
+        frie,
+    };
+
+    try expect(@intFromEnum(Value_enum.zero) == 0);
+    try expect(@intFromEnum(Value_enum.one) == 1);
+    try expect(@intFromEnum(Value_enum.two) == 2);
+    try expect(@intFromEnum(Value_enum.frie) == 3);
+}
+
+test {
+    const value = enum {
+        int,
+        uint,
+        float,
+    };
+
+    const flag = value.int;
+    const result: switch (flag) {
+        value.int => i64,
+        value.uint => u64,
+        value.float => f64,
+    } = 10;
+
+    try expect(result == 10);
+}
+
+test {
+    const a = enum {
+        red,
+        green,
+        blue,
+    };
+
+    const c: a = .red;
+    const d = a.red;
+    try expect(c == d);
+}
+
+test {
+    const line = enum(u4) {
+        one,
+        two,
+        _,
+    };
+
+    const value: line = ._;
+    const result: bool = switch (value) {
+        .one, .two => true,
+        _ => false,
+    };
+
+    try expect(result == false);
+}
