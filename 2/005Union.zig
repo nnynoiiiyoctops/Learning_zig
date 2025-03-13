@@ -41,3 +41,20 @@ test {
 
     try expect(prng.int > 1_000_000);
 }
+
+test {
+    const tagged = union(enum){
+        int: u64,
+        uint: u64,
+        float: f64,
+    };
+
+    const flag: tagged = .{ .int = 10 };
+    const result = switch( flag ){
+        .int => 10,
+        .float => 20,
+        .uint => 30,
+    };
+
+    try expect( result == 10 );
+}
