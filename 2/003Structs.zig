@@ -143,3 +143,14 @@ test {
         try expect(value != 0);
     }
 }
+
+const for_tests: type = struct{
+    a: u64,
+    b: u64,
+};
+
+test{
+    const for_example: for_tests = .{ .a = 10, .b = 120 };
+
+    try expect( for_example.a != for_example.b );
+}
